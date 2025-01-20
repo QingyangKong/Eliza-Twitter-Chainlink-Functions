@@ -35,7 +35,7 @@ export async function loadCharacters(
     return path.resolve(process.cwd(), filePath.trim());
   });
 
-  const loadedCharacters = [];
+  const loadedCharacters: any = [];
 
   if (characterPaths?.length > 0) {
     for (const path of characterPaths) {

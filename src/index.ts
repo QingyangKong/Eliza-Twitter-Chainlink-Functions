@@ -9,6 +9,8 @@ import {
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import { solanaPlugin } from "@elizaos/plugin-solana";
+import { getGiftPlugin } from "./custom-plugins/index.ts";
+import { evmPlugin } from "@elizaos/plugin-evm";
 import fs from "fs";
 import net from "net";
 import path from "path";
@@ -59,6 +61,8 @@ export function createAgent(
       bootstrapPlugin,
       nodePlugin,
       character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
+      getGiftPlugin,
+      evmPlugin,
     ].filter(Boolean),
     providers: [],
     actions: [],
@@ -74,6 +78,10 @@ async function startAgent(character: Character, directClient: DirectClient) {
     character.username ??= character.name;
 
     const token = getTokenForProvider(character.modelProvider, character);
+    console.log(`Token provider is ${character.modelProvider}`);
+    if(!token) {
+      throw new Error("Token not found for provider");
+    }
     const dataDir = path.join(__dirname, "../data");
 
     if (!fs.existsSync(dataDir)) {
