@@ -248,21 +248,12 @@ const genChainsFromRuntime = (
         (runtime.character.settings?.chains?.evm as SupportedChain[]) || [];
     const chains = {};
 
-    // Add for debug
-    console.log("initiating wallet with settings in genChainsFromRuntime1");
-    console.log("Chain names: ", chainNames);
-    console.log("initiated wallet with chains above in genChainsFromRuntime1");
-
     chainNames.forEach((chainName) => {
         const rpcUrl = runtime.getSetting(
             "ETHEREUM_PROVIDER_" + chainName.toUpperCase()
         );
         const chain = WalletProvider.genChainFromName(chainName, rpcUrl);
         chains[chainName] = chain;
-        // Add for debug
-        console.log("Adding wallet with settings in genChainsFromRuntime2");
-        console.log(`Chain name: , ${chainName} | RPC URL: ${rpcUrl}`);
-        console.log("Added wallet with settings in genChainsFromRuntime2");
     });
 
     const mainnet_rpcurl = runtime.getSetting("EVM_PROVIDER_URL");

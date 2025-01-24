@@ -383,11 +383,6 @@ export class TwitterInteractionClient {
                 messageHandlerTemplate,
         });
 
-        console.log("========================================in interaction========================================")
-        console.log("context to be sent is: ")
-        console.log(context)
-        console.log("========================================in interaction========================================")
-
         elizaLogger.debug("Interactions prompt:\n" + context);
 
         const response = await generateMessageResponse({

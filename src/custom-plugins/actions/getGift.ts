@@ -13,7 +13,6 @@ import {
 import { initWalletProvider, WalletProvider } from "../providers/wallet.ts";
 import type { GetGiftParams, Transaction } from "../types/index.ts";
 import { getGiftTemplate } from "../templates/index.ts";
-// import funJson from "../artifacts/Fun.json" with { type: "json" };
 import getGiftJson from "../artifacts/GetGift.json" with { type: "json" };
 
 // Exported for tests
@@ -22,7 +21,6 @@ export class GetGiftAction {
 
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
-        // const contractAddress = "0xa5A6dEE80D09Ed5421c2f95E3cC605c4341c5F9B"
         const contractAddress = "0xbf8ee4a627d5b9bf50387906feafa00cbea84c41"
         const encryptedSecretsUrls = "0xf255d1f7cd5416f9c2bbded6f5c908720237ff36d0e974e7d8ad71a1537a74ec9fae006e4a0eadaeaa6e8fd46aa69918195265434b99c99a020d39c33a8d331ecba299c01bfb6155642362a1e1dd6ec13145b11dd96680dcc16005141aaa74369191263a2a5b9408764f3c3b981c4fb17e3ba4573696f28d1daa5d4b7413c017f097d2ba08fe96cd18ae8ca4c26a54ea4ec949b5b1009ee09be894dafd9be678d4"
         const clSubId = 14697n
@@ -38,13 +36,7 @@ export class GetGiftAction {
         );
 
         try {
-            // const { abi } = funJson["contracts"]["contracts/Fun.sol:Fun"]
             const { abi } = getGiftJson["contracts"]["contracts/GetGift.sol:GetGift"]
-            // const sampleContract = getContract({
-            //     address: contractAddress,
-            //     abi,
-            //     client: walletClient
-            // })
             const getGiftContract = getContract({
                 address: contractAddress,
                 abi,
@@ -54,7 +46,6 @@ export class GetGiftAction {
             const args: string[] = [params.id];
             const userAddr = params.address;
 
-            // const hash = await sampleContract.write.setX([1n])
             const hash = await getGiftContract.write.sendRequest([
                 encryptedSecretsUrls,
                 args,
