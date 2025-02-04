@@ -1,5 +1,5 @@
 import { Character, Clients, defaultCharacter, ModelProviderName } from "@elizaos/core";
-import getGiftPlugin from "./plugins/twitter-custom-plugin/index.ts";
+import getGiftPlugin from "./plugins/functions-custom-plugin/index.ts";
 
 export const character: Character = {
   ...defaultCharacter,

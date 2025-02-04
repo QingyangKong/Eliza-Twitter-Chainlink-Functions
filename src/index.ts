@@ -3,7 +3,7 @@ import { AgentRuntime, elizaLogger, IAgentRuntime, settings, stringToUuid, type 
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import { solanaPlugin } from "@elizaos/plugin-solana";
-import { getGiftPlugin } from "./plugins/twitter-custom-plugin/index.ts";
+import { getGiftPlugin } from "./plugins/functions-custom-plugin/index.ts";
 import { evmPlugin } from "@elizaos/plugin-evm";
 import fs from "fs";
 import net from "net";
