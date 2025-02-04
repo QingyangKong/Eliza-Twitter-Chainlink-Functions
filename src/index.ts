@@ -1,15 +1,9 @@
 import { DirectClient } from "@elizaos/client-direct";
-import {
-  AgentRuntime,
-  elizaLogger,
-  settings,
-  stringToUuid,
-  type Character,
-} from "@elizaos/core";
+import { AgentRuntime, elizaLogger, IAgentRuntime, settings, stringToUuid, type Character } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import { solanaPlugin } from "@elizaos/plugin-solana";
-import { getGiftPlugin } from "./custom-plugins/index.ts";
+import { getGiftPlugin } from "./plugins/functions-custom-plugin/index.ts";
 import { evmPlugin } from "@elizaos/plugin-evm";
 import fs from "fs";
 import net from "net";
@@ -19,35 +13,21 @@ import { initializeDbCache } from "./cache/index.ts";
 import { character } from "./character.ts";
 import { startChat } from "./chat/index.ts";
 import { initializeClients } from "./clients/index.ts";
-import {
-  getTokenForProvider,
-  loadCharacters,
-  parseArguments,
-} from "./config/index.ts";
+import { getTokenForProvider, loadCharacters, parseArguments } from "./config/index.ts";
 import { initializeDatabase } from "./database/index.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const wait = (minTime: number = 1000, maxTime: number = 3000) => {
-  const waitTime =
-    Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
-  return new Promise((resolve) => setTimeout(resolve, waitTime));
+  const waitTime = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
+  return new Promise(resolve => setTimeout(resolve, waitTime));
 };
 
 let nodePlugin: any | undefined;
 
-export function createAgent(
-  character: Character,
-  db: any,
-  cache: any,
-  token: string
-) {
-  elizaLogger.success(
-    elizaLogger.successesTitle,
-    "Creating runtime for character",
-    character.name,
-  );
+export function createAgent(character: Character, db: any, cache: any, token: string) {
+  elizaLogger.success(elizaLogger.successesTitle, "Creating runtime for character", character.name);
 
   nodePlugin ??= createNodePlugin();
 
@@ -72,14 +52,14 @@ export function createAgent(
   });
 }
 
-async function startAgent(character: Character, directClient: DirectClient) {
+async function startAgent(character: Character, directClient: DirectClient): Promise<IAgentRuntime> {
   try {
     character.id ??= stringToUuid(character.name);
     character.username ??= character.name;
 
     const token = getTokenForProvider(character.modelProvider, character);
     console.log(`Token provider is ${character.modelProvider}`);
-    if(!token) {
+    if (!token) {
       throw new Error("Token not found for provider");
     }
     const dataDir = path.join(__dirname, "../data");
@@ -106,17 +86,14 @@ async function startAgent(character: Character, directClient: DirectClient) {
 
     return runtime;
   } catch (error) {
-    elizaLogger.error(
-      `Error starting agent for character ${character.name}:`,
-      error,
-    );
+    elizaLogger.error(`Error starting agent for character ${character.name}:`, error);
     console.error(error);
     throw error;
   }
 }
 
-const checkPortAvailable = (port: number): Promise<boolean> => {
-  return new Promise((resolve) => {
+const isPortAvailable = (port: number): Promise<boolean> => {
+  return new Promise(resolve => {
     const server = net.createServer();
 
     server.once("error", (err: NodeJS.ErrnoException) => {
@@ -149,18 +126,18 @@ const startAgents = async () => {
   console.log("characters", characters);
   try {
     for (const character of characters) {
-      await startAgent(character, directClient as DirectClient);
+      await startAgent(character, directClient);
     }
   } catch (error) {
     elizaLogger.error("Error starting agents:", error);
   }
 
-  while (!(await checkPortAvailable(serverPort))) {
+  while (!(await isPortAvailable(serverPort))) {
     elizaLogger.warn(`Port ${serverPort} is in use, trying ${serverPort + 1}`);
     serverPort++;
   }
 
-  // upload some agent functionality into directClient
+  // bind startAgent into directClient
   directClient.startAgent = async (character: Character) => {
     // wrap it so we don't have to inject directClient later
     return startAgent(character, directClient);
@@ -173,14 +150,14 @@ const startAgents = async () => {
   }
 
   const isDaemonProcess = process.env.DAEMON_PROCESS === "true";
-  if(!isDaemonProcess) {
+  if (!isDaemonProcess) {
     elizaLogger.log("Chat started. Type 'exit' to quit.");
     const chat = startChat(characters);
     chat();
   }
 };
 
-startAgents().catch((error) => {
+startAgents().catch(error => {
   elizaLogger.error("Unhandled error in startAgents:", error);
   process.exit(1);
 });
