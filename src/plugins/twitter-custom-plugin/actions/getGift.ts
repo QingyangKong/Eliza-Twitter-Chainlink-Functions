@@ -13,7 +13,7 @@ import {
 import { initWalletProvider, WalletProvider } from "../providers/wallet.ts";
 import type { GetGiftParams, Transaction } from "../types/index.ts";
 import { getGiftTemplate } from "../templates/index.ts";
-import getGiftJson from "../artifacts/GetGift.json" with { type: "json" };
+import getGiftJson from "../abi/GetGift.json" with { type: "json" };
 
 // Exported for tests
 export class GetGiftAction {
