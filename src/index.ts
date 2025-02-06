@@ -8,7 +8,6 @@ import {
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
-import { solanaPlugin } from "@elizaos/plugin-solana";
 import { getGiftPlugin } from "./custom-plugins/index.ts";
 import { evmPlugin } from "@elizaos/plugin-evm";
 import fs from "fs";
@@ -60,7 +59,6 @@ export function createAgent(
     plugins: [
       bootstrapPlugin,
       nodePlugin,
-      character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
       getGiftPlugin,
       evmPlugin,
     ].filter(Boolean),
