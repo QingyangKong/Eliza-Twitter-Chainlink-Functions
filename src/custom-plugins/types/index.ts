@@ -7,7 +7,7 @@ const _SupportedChainList = Object.keys(viemChains) as Array<
 export type SupportedChain = (typeof _SupportedChainList)[number];
 
 export interface GetGiftParams {
-    id: string;
+    code: string;
     address: `0x${string}`;
 }
 

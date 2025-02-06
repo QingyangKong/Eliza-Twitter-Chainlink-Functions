@@ -7,17 +7,17 @@ First, review the recent messages from the conversation:
 </recent_messages>
 
 Your goal is to extract the following information about the requested transfer:
-1. ID, this is a positive integer
+1. Gift code, this is a string with numbers and characters
 2. Wallet address, this is ethereum address with 42 characters
 
 Before providing the final JSON output, show your reasoning process inside <analysis> tags. Follow these steps:
 
 1. Identify the relevant information from the user's message:
-   - Quote the part of the message mentioning the ID.
-   - Quote the part mentioning the wallet address.
+   - Quote the part of the message mentioning the gift code or code.
+   - Quote the part mentioning the wallet address or address.
 
 2. Validate each piece of information:
-   - ID: check if the ID is a positive integer.
+   - Code: check if the code is a string that contains number and characters.
    - Address: Check that it starts with "0x" and count the number of characters (should be 42).
 
 3. If any information is missing or invalid, prepare an appropriate error message.
@@ -30,13 +30,13 @@ After your analysis, provide the final output in a JSON markdown block. All fiel
 
 \`\`\`json
 {
-    "id": number,
+    "code": string,
     "address": string,
 }
 \`\`\`
 
 Remember:
-- The ID must be a positive integer.
+- The gift code must be a string with number and characters.
 - The wallet address must be a valid Ethereum address starting with "0x".
 
 Now, process the user's request and provide your response.

@@ -101,10 +101,6 @@ export async function validateTwitterConfig(
     runtime: IAgentRuntime
 ): Promise<TwitterConfig> {
     try {
-        console.log("##################################")
-        console.log(`TWITTER EMAIL: ${runtime.getSetting("TWITTER_EMAIL")}`)
-        console.log(`TWITTER EMAIL: ${process.env.TWITTER_EMAIL}`)
-        console.log("##################################")
         const twitterConfig = {
             TWITTER_DRY_RUN:
                 parseBooleanFromText(

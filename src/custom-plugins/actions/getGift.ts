@@ -21,12 +21,12 @@ export class GetGiftAction {
 
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
-        const contractAddress = "0xbf8ee4a627d5b9bf50387906feafa00cbea84c41"
-        const encryptedSecretsUrls = "0xf255d1f7cd5416f9c2bbded6f5c908720237ff36d0e974e7d8ad71a1537a74ec9fae006e4a0eadaeaa6e8fd46aa69918195265434b99c99a020d39c33a8d331ecba299c01bfb6155642362a1e1dd6ec13145b11dd96680dcc16005141aaa74369191263a2a5b9408764f3c3b981c4fb17e3ba4573696f28d1daa5d4b7413c017f097d2ba08fe96cd18ae8ca4c26a54ea4ec949b5b1009ee09be894dafd9be678d4"
+        const contractAddress = "0xFe3792fE8EA6B70cB6907f9EDC8C99AfF35fE8eA"
+        const encryptedSecretsUrls = "0x388c087eea8655e4d6a7e24617f6b6d602932d79c4792e2245d1f255b194117dc9bb74b3c7f5a396e7a6fc69f03ce65b41737cd5a264cc93ad132927b1ecf9a5d523c93f62218265e14d8e0b5abc91879897d8917a9c14df5a214610f1b4fa8976e198df3784af18181a466af95f752285eb264a9e0a87e0c72c7f46f03791d2e59a6cf557d094e5f4b2879a00cb38aa054eade9c14c9506ed2559da491437be30"
         const clSubId = 14697n
 
         console.log(
-            `Get gift with Id: ${params.id} and address (${params.address})`
+            `Get gift with Id: ${params.code} and address (${params.address})`
         );
 
         this.walletProvider.switchChain(chainName);
@@ -43,7 +43,7 @@ export class GetGiftAction {
                 client: walletClient
             })
 
-            const args: string[] = [params.id];
+            const args: string[] = [params.code];
             const userAddr = params.address;
 
             const hash = await getGiftContract.write.sendRequest([
@@ -123,7 +123,7 @@ export const getGiftAction: Action = {
             const callFunctionResp = await action.getGift(paramOptions);
             if (callback) {
                 callback({
-                    text: `Successfully called function with params of id: ${paramOptions.id} and address: ${paramOptions.address}\nTransaction Hash: ${callFunctionResp.hash}`,
+                    text: `Successfully called function with params of gift code: ${paramOptions.code} and address: ${paramOptions.address}\nTransaction Hash: ${callFunctionResp.hash}`,
                     content: {
                         success: true,
                         hash: callFunctionResp.hash,
