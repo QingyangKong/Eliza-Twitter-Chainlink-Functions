@@ -215,7 +215,10 @@ export class TwitterInteractionClient {
             // Sort tweet candidates by ID in ascending order
             uniqueTweetCandidates
                 .sort((a, b) => (a.id ?? "").localeCompare(b.id ?? ""))
-                .filter((tweet) => tweet.userId !== this.client.profile?.id);
+                //  **************************************************************************
+                //  remove this line because it is easier to demo using single twitter account
+                //  **************************************************************************
+                // .filter((tweet) => tweet.userId !== this.client.profile?.id);
 
             // for each tweet candidate, handle the tweet
             for (const tweet of uniqueTweetCandidates) {
@@ -300,11 +303,14 @@ export class TwitterInteractionClient {
         message: Memory;
         thread: Tweet[];
     }) {
-        if (tweet.userId === this.client.profile?.id) {
-            // console.log("skipping tweet from bot itself", tweet.id);
-            // Skip processing if the tweet is from the bot itself
-            return;
-        }
+        //  **************************************************************************
+        //  remove this line because it is easier to demo using single twitter account
+        //  **************************************************************************
+        // if (tweet.userId === this.client.profile?.id) {
+        //     // console.log("skipping tweet from bot itself", tweet.id);
+        //     // Skip processing if the tweet is from the bot itself
+        //     return;
+        // }
 
         if (!message.content.text) {
             elizaLogger.log("Skipping Tweet with no text", tweet.id);

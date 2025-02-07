@@ -28,17 +28,17 @@ class TwitterManager {
         this.client = new ClientBase(runtime, twitterConfig);
 
         // Posting logic
-        this.post = new TwitterPostClient(this.client, runtime);
+        // this.post = new TwitterPostClient(this.client, runtime);
 
-        // Optional search logic (enabled if TWITTER_SEARCH_ENABLE is true)
-        if (twitterConfig.TWITTER_SEARCH_ENABLE) {
-            elizaLogger.warn("Twitter/X client running in a mode that:");
-            elizaLogger.warn("1. violates consent of random users");
-            elizaLogger.warn("2. burns your rate limit");
-            elizaLogger.warn("3. can get your account banned");
-            elizaLogger.warn("use at your own risk");
-            this.search = new TwitterSearchClient(this.client, runtime);
-        }
+        // // Optional search logic (enabled if TWITTER_SEARCH_ENABLE is true)
+        // if (twitterConfig.TWITTER_SEARCH_ENABLE) {
+        //     elizaLogger.warn("Twitter/X client running in a mode that:");
+        //     elizaLogger.warn("1. violates consent of random users");
+        //     elizaLogger.warn("2. burns your rate limit");
+        //     elizaLogger.warn("3. can get your account banned");
+        //     elizaLogger.warn("use at your own risk");
+        //     this.search = new TwitterSearchClient(this.client, runtime);
+        // }
 
         // Mentions and interactions
         this.interaction = new TwitterInteractionClient(this.client, runtime);
@@ -56,8 +56,12 @@ export const TwitterClientInterface: Client = {
         // Initialize login/session
         await manager.client.init();
 
-        // Start the posting loop
-        await manager.post.start();
+        //*******
+        // remove the post loop and search
+        // post loop removed because it 
+        //  */        
+        // // Start the posting loop
+        // await manager.post.start();
 
         // Start the search logic if it exists
         if (manager.search) {
