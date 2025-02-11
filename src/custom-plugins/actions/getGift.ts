@@ -21,9 +21,10 @@ export class GetGiftAction {
 
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
-        const contractAddress = "0xFe3792fE8EA6B70cB6907f9EDC8C99AfF35fE8eA"
-        const encryptedSecretsUrls = "0x388c087eea8655e4d6a7e24617f6b6d602932d79c4792e2245d1f255b194117dc9bb74b3c7f5a396e7a6fc69f03ce65b41737cd5a264cc93ad132927b1ecf9a5d523c93f62218265e14d8e0b5abc91879897d8917a9c14df5a214610f1b4fa8976e198df3784af18181a466af95f752285eb264a9e0a87e0c72c7f46f03791d2e59a6cf557d094e5f4b2879a00cb38aa054eade9c14c9506ed2559da491437be30"
-        const clSubId = 14697n
+        const contractAddress = "0x5a0e7cf20d8bfb4493d73d17f2c4ae5bbbefa4b2"
+        const donHostedSecretsSlotID = 0n
+        const donHostedSecretsVersion = 1739285900n
+        const clSubId = 15371n
 
         console.log(
             `Get gift with Id: ${params.code} and address (${params.address})`
@@ -36,7 +37,7 @@ export class GetGiftAction {
         );
 
         try {
-            const { abi } = getGiftJson["contracts"]["contracts/GetGift.sol:GetGift"]
+            const { abi } = getGiftJson["contracts"]["GetGift.sol:GetGift"]
             const getGiftContract = getContract({
                 address: contractAddress,
                 abi,
@@ -47,7 +48,8 @@ export class GetGiftAction {
             const userAddr = params.address;
 
             const hash = await getGiftContract.write.sendRequest([
-                encryptedSecretsUrls,
+                donHostedSecretsSlotID,
+                donHostedSecretsVersion,
                 args,
                 clSubId,
                 userAddr
