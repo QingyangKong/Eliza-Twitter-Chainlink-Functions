@@ -5,8 +5,8 @@ export const character: Character = {
     ...defaultCharacter,
     // name: "Eliza",
     plugins: [getGiftPlugin],
-    clients: [Clients.TWITTER],
-    modelProvider: ModelProviderName.GOOGLE,
+    clients: [],
+    modelProvider: ModelProviderName.OPENAI,
     settings: {
         secrets: {},
         voice: {
