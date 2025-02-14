@@ -1,3 +1,8 @@
+/**
+ * @fileoverview This file contains the implementation of the GetGiftAction class and the getGiftAction handler.
+ * It interacts with a smart contract on the Avalanche Fuji testnet to send a gift request.
+ */
+
 import { formatEther, parseEther, getContract } from "viem";
 import {
     Action,
@@ -15,10 +20,22 @@ import type { GetGiftParams, Transaction } from "../types/index.ts";
 import { getGiftTemplate } from "../templates/index.ts";
 import getGiftJson from "../artifacts/GetGift.json" with { type: "json" };
 
-// Exported for tests
+/**
+ * Class representing the GetGiftAction.
+ */
 export class GetGiftAction {
+    /**
+     * Creates an instance of GetGiftAction.
+     * @param {WalletProvider} walletProvider - The wallet provider instance.
+     */
     constructor(private walletProvider: WalletProvider) {}
 
+    /**
+     * Sends a gift request to the smart contract.
+     * @param {GetGiftParams} params - The parameters for the gift request.
+     * @returns {Promise<Transaction>} The transaction details.
+     * @throws Will throw an error if contract address, slot ID, version, or subscription ID is not set.
+     */
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
         const contractAddress =  0x00 // dev TODO
@@ -76,6 +93,13 @@ export class GetGiftAction {
     }
 }
 
+/**
+ * Builds the function call details required for the getGift action.
+ * @param {State} state - The current state.
+ * @param {IAgentRuntime} runtime - The agent runtime.
+ * @param {WalletProvider} wp - The wallet provider.
+ * @returns {Promise<GetGiftParams>} The parameters for the gift request.
+ */
 const buildFunctionCallDetails = async (
     state: State,
     runtime: IAgentRuntime,
@@ -98,6 +122,10 @@ const buildFunctionCallDetails = async (
     return functionCallDetails;
 };
 
+/**
+ * The getGiftAction handler.
+ * @type {Action}
+ */
 export const getGiftAction: Action = {
     name: "get gift",
     description: "Call a function on Functions consumer and send request",
