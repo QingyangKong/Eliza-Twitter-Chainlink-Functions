@@ -67,7 +67,7 @@ export function getTokenForProvider(
       );
     case ModelProviderName.GOOGLE:
       return (
-        character.settings?.secrets?.GOOGLE_API_KEY || settings.GOOGLE_API_KEY
+        character.settings?.secrets?.GEMINI_API_KEY || settings.GEMINI_API_KEY
       );
     case ModelProviderName.LLAMACLOUD:
       return (
