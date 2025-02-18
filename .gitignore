@@ -8,3 +8,7 @@ dist/
 db.sqlite
 .idea
 *.gguf
+
+# OS specific files
+.DS_Store
+Thumbs.db

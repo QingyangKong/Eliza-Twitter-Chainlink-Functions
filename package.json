@@ -11,6 +11,7 @@
     "stop:service:all": "pm2 stop all"
   },
   "dependencies": {
+    "@chainlink/functions-toolkit": "^0.3.2",
     "@elizaos/adapter-postgres": "0.1.7",
     "@elizaos/adapter-sqlite": "0.1.7",
     "@elizaos/client-auto": "0.1.7",
@@ -24,6 +25,8 @@
     "agent-twitter-client": "0.0.18",
     "amqplib": "0.10.5",
     "better-sqlite3": "11.5.0",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
     "fs": "0.0.1-security",
     "net": "1.0.2",
     "node-cache": "^5.1.2",
