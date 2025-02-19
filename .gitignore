@@ -12,3 +12,8 @@ db.sqlite
 # OS specific files
 .DS_Store
 Thumbs.db
+
+
+#generated files
+donSecretsInfo.txt
+encryptedSecretsUrls.txt
