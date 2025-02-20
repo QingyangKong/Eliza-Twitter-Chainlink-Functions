@@ -11,7 +11,7 @@ const makeRequestSepolia = async () => {
   const secrets = { apikey: process.env.SUPABASE_API_KEY };
 
   // Initialize ethers signer and provider to interact with the contracts onchain
-  const privateKey = process.env.PRIVATE_KEY; // fetch PRIVATE_KEY
+  const privateKey = process.env.EVM_PRIVATE_KEY;
   if (!privateKey) throw new Error("private key not provided - check your environment variables");
 
   const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
