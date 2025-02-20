@@ -38,10 +38,10 @@ export class GetGiftAction {
      */
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
-        const contractAddress: `0x${string}` =  "0x00" // dev TODO
-        const donHostedSecretsSlotID:number = Infinity // dev TODO
-        const donHostedSecretsVersion:number = Infinity // dev TODO
-        const clSubId:number = Infinity // dev TODO
+        const contractAddress: `0x${string}` =  "0x4546639356d85120ded7ad2a7dc07f5b1314ca1f" // dev TODO
+        const donHostedSecretsSlotID:number = 0 // dev TODO
+        const donHostedSecretsVersion:number = 1740079251 // dev TODO
+        const clSubId:number = 4848 // dev TODO
 
         if (contractAddress === "0x00" || donHostedSecretsSlotID === Infinity || donHostedSecretsVersion === Infinity || clSubId === Infinity) {
             throw new Error("Contract address, slot ID, version, or subscription ID is not set");
@@ -147,17 +147,18 @@ export const getGiftAction: Action = {
         const action = new GetGiftAction(walletProvider);
 
         // Compose functionCall context
-        const paramOptions = await buildFunctionCallDetails(
+        const giftParams:GetGiftParams = await buildFunctionCallDetails(
             state,
             runtime,
             walletProvider
         );
+        
 
         try {
-            const callFunctionResp = await action.getGift(paramOptions);
+            const callFunctionResp = await action.getGift(giftParams);
             if (callback) {
                 callback({
-                    text: `Successfully called function with params of gift code: ${paramOptions.code} and address: ${paramOptions.address}\nTransaction Hash: ${callFunctionResp.hash}`,
+                    text: `Successfully called function with params of gift code: ${giftParams.code} and address: ${giftParams.address}\nTransaction Hash: ${callFunctionResp.hash}`,
                     content: {
                         success: true,
                         hash: callFunctionResp.hash,

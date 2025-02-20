@@ -8,13 +8,13 @@ First, review the recent messages from the conversation:
 
 Your goal is to extract the following information about the requested transfer:
 1. Gift code, this is a string with numbers and characters
-2. Wallet address, this is ethereum address with 42 characters
+2. Wallet address, this is ethereum wallet address with 42 characters, always starts with 0x.
 
 Before providing the final JSON output, show your reasoning process inside <analysis> tags. Follow these steps:
 
 1. Identify the relevant information from the user's message:
    - Quote the part of the message mentioning the gift code or code.
-   - Quote the part mentioning the wallet address or address.
+   - Quote the part mentioning the wallet address. They may simply refer to it as "address".
 
 2. Validate each piece of information:
    - Code: check if the code is a string that contains number and characters.
