@@ -38,10 +38,10 @@ export class GetGiftAction {
      */
     async getGift(params: GetGiftParams): Promise<Transaction> {
         const chainName = "avalancheFuji";
-        const contractAddress: `0x${string}` =  "0x00" // dev TODO
-        const donHostedSecretsSlotID:number = Infinity // dev TODO
-        const donHostedSecretsVersion:number = Infinity // dev TODO
-        const clSubId:number = Infinity // dev TODO
+        const contractAddress: `0x${string}` =  "0x2f41d5833d68fc0fb3c72b80689a7263ef71b325" // dev TODO
+        const donHostedSecretsSlotID:number = 0 // dev TODO
+        const donHostedSecretsVersion:number = 1740851224 // dev TODO
+        const clSubId:number = 4848 // dev TODO
 
         if (contractAddress === "0x00" || donHostedSecretsSlotID === Infinity || donHostedSecretsVersion === Infinity || clSubId === Infinity) {
             throw new Error("Contract address, slot ID, version, or subscription ID is not set");
@@ -128,7 +128,7 @@ const buildFunctionCallDetails = async (
  */
 export const getGiftAction: Action = {
     name: "get gift",
-    description: "Call a function on Functions consumer and send request",
+    description: "Given a wallet address and gift code, extract that data and call a function on the Functions Consumer Smart Contract and send request",
     handler: async (
         runtime: IAgentRuntime,
         message: Memory,
